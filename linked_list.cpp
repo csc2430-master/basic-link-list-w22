@@ -43,7 +43,18 @@ bool LinkedList::AddToTop(int value) {
 }
 
 bool LinkedList::Remove(size_t position) {
-    return false;
+    if (position >= _size)
+        return false;
+    Node* tmp = _head;
+    for (int i = 0; i < position - 1; ++i) {
+        tmp = tmp->next;
+    }
+    Node* toRemove = tmp->next;
+    tmp->next = tmp->next->next;
+    toRemove->next = nullptr;
+    delete toRemove;
+    _size--;
+    return true;
 }
 
 size_t LinkedList::Size() const {
